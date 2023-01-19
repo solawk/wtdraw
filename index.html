@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WT drawStuff</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="overflow: hidden">
+    <canvas id="mainCanvas" width="3840" height="2160"></canvas>
+    <div id="functionalMenu" class="menuIsland" style="left: 1em; top: 1em">
+        <hr id="functionalMenuDragger" size="10px" style="background-color: lightgray">
+        <input type="text" id="refUrl" value="https://sun9-8.userapi.com/impg/EbJn9QitjVeBTbSZB0vXa3hb1yeoHvQMRdSueQ/bX-VL6uy4c0.jpg?size=1080x1247&quality=96&sign=40dfb3fe43079cecd5ecdadf36782859">
+        <button id="loadRefButton" onclick="setReference()">Загрузить</button>
+
+        <br>
+        <input type="file" id="refFile">
+
+        <br>
+        <input type="number" id="refSize" value="1">
+        <button id="sizeRefButton" onclick="setReferenceSize()">Задать размер</button>
+
+        <br><br>
+        <span id="saveFileNameTitle">Название файла</span>: <input type="text" id="saveFileName" value="sight"><br>
+        <button id="saveButton" onclick="save()">Сохранить в файл</button>
+        <button id="loadButton" onclick="el('loadButtonInput').click()">Загрузить из файла</button>
+        <input type="file" id="loadButtonInput" style="display: none">
+
+        <br><br>
+        <button id="exportButton" onclick="exportToClipboard()">Экспортировать</button>
+
+        <br><br>
+        <button id="langRu" onclick="changeLang('ru')">Русский</button>
+        <button id="langEn" onclick="changeLang('en')">English</button>
+    </div>
+    <div id="toolsMenu" class="menuIsland" style="left: 1em; bottom: 1em;">
+        <hr id="toolsMenuDragger" size="10px" style="background-color: lightgray; margin: 0">
+        Инструмент:<br>
+        <button id="toolsLinesButton">Линии</button><br>
+        <button id="toolsQuadsButton">Четырёхугольники</button><br>
+        <span id="opacityTitle">Непрозрачность: </span><input id="opacityInput" type="range" value="0.8" min="0" max="1" step="0.05">
+    </div>
+    <div id="objectsMenu" class="menuIsland" style="right: 1em; top: 1em; max-height: 50%; display: flex; flex-direction: column">
+        <hr id="objectsMenuDragger" size="10px" style="background-color: lightgray; margin: 0">
+        <b id="objectsTitle">Объекты</b>
+        <div id="objectsList">
+        </div>
+    </div>
+    <div id="infoMenu" class="menuIsland" style="right: 1em; bottom: 1em; text-align: center">
+        <hr id="infoMenuDragger" size="10px" style="background-color: lightgray">
+        <b id="selObjectTitle">Выбранный объект</b>
+        <table id="infoTable"></table>
+        <button id="infoDeleteButton" style="display: none">Удалить объект</button>
+    </div>
+    <a id="saver"></a>
+</body>
+<script src="util.js"></script>
+<script src="lang.js"></script>
+<script src="v2.js"></script>
+<script src="saveload.js"></script>
+<script src="draggableIslands.js"></script>
+<script src="undo.js"></script>
+<script src="reference.js"></script>
+<script src="tools.js"></script>
+<script src="drawing.js"></script>
+<script src="canvas.js"></script>
+<script src="onerror.js"></script>
+</html>

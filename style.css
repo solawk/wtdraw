@@ -1,0 +1,40 @@
+#mainCanvas
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+.menuIsland
+{
+    background-color: white;
+    border: 1px solid black;
+    position: absolute;
+    user-select: none;
+
+    padding: 1em;
+    border-radius: 1em;
+}
+
+#objectsList
+{
+    vertical-align: top;
+    min-height: 5em;
+    overflow-y: scroll;
+    padding: 0.5em;
+}
+
+.objectRow
+{
+    width: 100%;
+    display: block;
+    user-select: none;
+    background-color: transparent;
+    transition: 0.1s;
+}
+
+.objectRow:hover
+{
+    background-color: rgba(100, 100, 100, 0.25);
+}
