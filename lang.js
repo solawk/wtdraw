@@ -1,15 +1,19 @@
 const ru =
     {
+        refUrlTitle: "URL картинки",
+        refFileTitle: "Файл картинки",
         loadRefButton: "Загрузить",
-        sizeRefButton: "Задать размер",
-        exportButton: "Экспортировать",
+        sizeRefTitle: "Размер картинки",
+        exportButton: "Экспортировать прицел",
 
         saveButton: "Сохранить в файл",
         loadButton: "Загрузить из файла",
         infoDeleteButton: "Удалить объект",
 
+        toolTitle: "Инструмент",
         toolsLinesButton: "Линии",
         toolsQuadsButton: "Четырёхугольники",
+        opacityTitle: "Непрозрачность",
         objectsTitle: "Объекты",
 
         selObjectTitle: "Выбранный объект",
@@ -31,21 +35,27 @@ const ru =
         pos4Y: "Вершина 4 Y",
 
         line: "Линия",
-        quad: "Четырёхугольник"
+        quad: "Четырёхугольник",
+
+        hintsText: "[ПКМ] - Двигать холст, [ЛКМ] - Рисовать, [СКМ] - Выбрать объект, [Ctrl] - Приклеить курсор к существующим вершинам<br>[Колёсико] - Масштабирование, [Ctrl+Z] - Отмена, [Ctrl+A] - Сброс выбора объекта",
     };
 
 const en =
     {
+        refUrlTitle: "Image URL",
+        refFileTitle: "Image file",
         loadRefButton: "Load",
-        sizeRefButton: "Set size",
-        exportButton: "Export",
+        sizeRefTitle: "Image size",
+        exportButton: "Export sight",
 
         saveButton: "Save to file",
         loadButton: "Load from file",
         infoDeleteButton: "Delete object",
 
+        toolTitle: "Tool",
         toolsLinesButton: "Lines",
         toolsQuadsButton: "Quads",
+        opacityTitle: "Opacity",
         objectsTitle: "Objects",
 
         selObjectTitle: "Selected object",
@@ -67,29 +77,42 @@ const en =
         pos4Y: "Vertex 4 Y",
 
         line: "Line",
-        quad: "Quad"
+        quad: "Quad",
+
+        hintsText: "[RMB] - Move canvas, [LMB] - Draw, [MMB] - Select object, [Ctrl] - Snap to vertices<br>[Mouse Wheel] - Zoom, [Ctrl+Z] - Undo, [Ctrl+A] - Clear selection",
     };
 
 const langDependent =
     [
+        "refUrlTitle",
+        "refFileTitle",
         "loadRefButton",
-        "sizeRefButton",
+        "sizeRefTitle",
         "exportButton",
 
         "saveButton",
         "loadButton",
         "infoDeleteButton",
 
-        "toolsLinesButton",
-        "toolsQuadsButton",
+        "toolTitle",
+        //"toolsLinesButton",
+        //"toolsQuadsButton",
+        "opacityTitle",
         "objectsTitle",
 
         "selObjectTitle",
-        "saveFileNameTitle"
+        "saveFileNameTitle",
+
+        "hintsText"
     ];
 
 function changeLang(to)
 {
+    if (!to)
+    {
+        to = (lang === ru) ? "en" : "ru";
+    }
+
     switch (to)
     {
         case "ru":
@@ -110,3 +133,5 @@ function changeLang(to)
 }
 
 let lang = ru;
+
+changeLang("ru");

@@ -37,6 +37,48 @@ function popEvent()
             objects.set(objIdStr, event.data);
 
             break;
+
+        case "move":
+            const posPulled = event.data.posPulled;
+            const prevValue = event.data.prevValue;
+            const object = objects.get(event.data.id);
+
+            if (object == null)
+            {
+                console.log("Moved object not found!");
+                break;
+            }
+
+            switch (object.type)
+            {
+                case "line":
+                    switch (posPulled)
+                    {
+                        case 0: object.start.x = prevValue; break;
+                        case 1: object.start.y = prevValue; break;
+                        case 2: object.end.x = prevValue; break;
+                        case 3: object.end.y = prevValue; break;
+                    }
+
+                    break;
+
+                case "quad":
+                    switch (posPulled)
+                    {
+                        case 0: object.pos1.x = prevValue; break;
+                        case 1: object.pos1.y = prevValue; break;
+                        case 2: object.pos2.x = prevValue; break;
+                        case 3: object.pos2.y = prevValue; break;
+                        case 4: object.pos3.x = prevValue; break;
+                        case 5: object.pos3.y = prevValue; break;
+                        case 6: object.pos4.x = prevValue; break;
+                        case 7: object.pos4.y = prevValue; break;
+                    }
+
+                    break;
+            }
+
+            break;
     }
 }
 

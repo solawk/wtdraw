@@ -14,7 +14,7 @@ window.onerror = (event, source, lineno, colno, error) =>
     document.body.appendChild(island);
     makeDraggable("errorIsland");
 
-    //setTimeout(() => { if (el("errorIsland") != null) document.body.removeChild(el("errorIsland")); }, 5000);
+    setTimeout(() => { if (el("errorIsland") != null) document.body.removeChild(el("errorIsland")); }, 10000);
 
     return false;
 };

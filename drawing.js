@@ -315,6 +315,7 @@ function exportToClipboard()
     string += "\r\n}\r\n";
 
     navigator.clipboard.writeText(string);
+    alert(lang === ru ? "Скопировано в буфер обмена!" : "Copied to the clipboard!");
 }
 
 function deleteObject(id)

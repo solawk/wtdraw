@@ -1,3 +1,8 @@
+body
+{
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
 #mainCanvas
 {
     position: absolute;
@@ -37,4 +42,15 @@
 .objectRow:hover
 {
     background-color: rgba(100, 100, 100, 0.25);
+}
+
+button:disabled
+{
+    background-color: rgba(20, 20, 20, 0.25);
+}
+
+a
+{
+    text-decoration: none;
+    color: black;
 }

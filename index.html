@@ -2,22 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>WT drawStuff</title>
+    <title>WTDraw</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="quadsTool.png" type="image/png">
 </head>
 <body style="overflow: hidden">
     <canvas id="mainCanvas" width="3840" height="2160"></canvas>
     <div id="functionalMenu" class="menuIsland" style="left: 1em; top: 1em">
         <hr id="functionalMenuDragger" size="10px" style="background-color: lightgray">
-        <input type="text" id="refUrl" value="https://sun9-8.userapi.com/impg/EbJn9QitjVeBTbSZB0vXa3hb1yeoHvQMRdSueQ/bX-VL6uy4c0.jpg?size=1080x1247&quality=96&sign=40dfb3fe43079cecd5ecdadf36782859">
+        <span id="refUrlTitle"></span>: <input type="text" id="refUrl" value="">
         <button id="loadRefButton" onclick="setReference()">Загрузить</button>
 
         <br>
-        <input type="file" id="refFile">
+        <!--<button id="calcButton" onclick="calc()">calc</button>-->
+        <span id="refFileTitle"></span>: <input type="file" id="refFile">
 
         <br>
-        <input type="number" id="refSize" value="1">
-        <button id="sizeRefButton" onclick="setReferenceSize()">Задать размер</button>
+        <span id="sizeRefTitle"></span>: <input type="number" id="refSize" onchange="setReferenceSize()" value="1" step="0.1">
 
         <br><br>
         <span id="saveFileNameTitle">Название файла</span>: <input type="text" id="saveFileName" value="sight"><br>
@@ -27,17 +28,19 @@
 
         <br><br>
         <button id="exportButton" onclick="exportToClipboard()">Экспортировать</button>
-
-        <br><br>
-        <button id="langRu" onclick="changeLang('ru')">Русский</button>
-        <button id="langEn" onclick="changeLang('en')">English</button>
     </div>
     <div id="toolsMenu" class="menuIsland" style="left: 1em; bottom: 1em;">
         <hr id="toolsMenuDragger" size="10px" style="background-color: lightgray; margin: 0">
-        Инструмент:<br>
-        <button id="toolsLinesButton">Линии</button><br>
-        <button id="toolsQuadsButton">Четырёхугольники</button><br>
-        <span id="opacityTitle">Непрозрачность: </span><input id="opacityInput" type="range" value="0.8" min="0" max="1" step="0.05">
+        <span id="toolTitle">Инструмент</span>:<br>
+        <button id="toolsLinesButton"><img src="linesTool.png" style="width: 3em; border: 1px solid black; -webkit-user-drag: none;"></button>
+        <button id="toolsQuadsButton"><img src="quadsTool.png" style="width: 3em; border: 1px solid black; -webkit-user-drag: none;"></button>
+        <br><br>
+        <span id="opacityTitle">Непрозрачность</span>:<br>
+        <input id="opacityInput" type="range" value="0.8" min="0" max="1" step="0.05">
+        <br><br>
+        <img src="lang.png" style="width: 3em; border: 1px solid black; -webkit-user-drag: none;" onclick="changeLang()">
+        <br><a href="https://github.com/solawk/wtdraw" target="_blank">[GitHub]</a>
+        <br><a href="https://boosty.to/solawk" target="_blank">[Boosty]</a>
     </div>
     <div id="objectsMenu" class="menuIsland" style="right: 1em; top: 1em; max-height: 50%; display: flex; flex-direction: column">
         <hr id="objectsMenuDragger" size="10px" style="background-color: lightgray; margin: 0">
@@ -51,9 +54,13 @@
         <table id="infoTable"></table>
         <button id="infoDeleteButton" style="display: none">Удалить объект</button>
     </div>
+    <div id="hints" style="text-align: center; margin: auto; font-size: 0.8em; user-select: none;">
+        <span id="hintsText"></span>
+    </div>
     <a id="saver"></a>
 </body>
 <script src="util.js"></script>
+<script src="drawing.js"></script>
 <script src="lang.js"></script>
 <script src="v2.js"></script>
 <script src="saveload.js"></script>
@@ -61,7 +68,6 @@
 <script src="undo.js"></script>
 <script src="reference.js"></script>
 <script src="tools.js"></script>
-<script src="drawing.js"></script>
 <script src="canvas.js"></script>
 <script src="onerror.js"></script>
 </html>

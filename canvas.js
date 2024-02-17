@@ -2,8 +2,8 @@ const canvas = el("mainCanvas");
 const ctx = canvas.getContext("2d");
 
 // Positioning
-let screenPos = { x: 0, y: 0 }; // In sight coordinates
-let screenZoom = 1; // Sight scale * zoom * 2000 = pixels
+let screenPos = { x: 0, y: 0.1 }; // In sight coordinates
+let screenZoom = 1 / 1.21; // Sight scale * zoom * 2000 = pixels
 // Zoom = 1 => 0.5 sight = 1000 pixels, zoom = 2 => 0.5 sight = 2000 pixels
 
 let gridSize = 0.1; // Size of grid cell in sight scale
@@ -215,6 +215,35 @@ function drawGhost()
 
     ctx.lineWidth = 1;
 
+    ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+
+    function drawCircle(x, y, r)
+    {
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    function drawLine(x1, y1, x2, y2)
+    {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    function drawQuad(coords)
+    {
+        ctx.beginPath();
+        ctx.moveTo(coords[0].x, coords[0].y);
+        for (let i = 1; i < coords.length; i++) ctx.lineTo(coords[i].x, coords[i].y);
+        ctx.closePath();
+        ctx.fill();
+    }
+
     switch (tool)
     {
         case "lines":
@@ -223,83 +252,63 @@ function drawGhost()
                 const from = v2disposSight2v2canvas(startPos);
                 const to = mousePosCanvas;
 
-                ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
-                ctx.beginPath();
-                ctx.moveTo(from.x, from.y);
-                ctx.lineTo(to.x, to.y);
-                ctx.closePath();
-                ctx.stroke();
+                drawLine(from.x, from.y, to.x, to.y);
             }
 
             if (snapping)
             {
-                ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-                ctx.beginPath();
-                ctx.arc(mousePosCanvas.x, mousePosCanvas.y,
-                    20, 0, 2 * Math.PI, false);
-                ctx.closePath();
-                ctx.fill();
+                drawCircle(mousePosCanvas.x, mousePosCanvas.y, 20);
             }
             break;
 
         case "quads":
-            ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
-            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-            ctx.beginPath();
-
             if (snapping)
             {
-                ctx.arc(mousePosCanvas.x, mousePosCanvas.y,
-                    20, 0, 2 * Math.PI, false);
+                drawCircle(mousePosCanvas.x, mousePosCanvas.y, 20);
             }
 
             if (quadPos.length === 0)
             {
                 if (drawing && !snapping)
                 {
-                    ctx.arc(mousePosCanvas.x, mousePosCanvas.y,
-                        20, 0, 2 * Math.PI, false);
+                    drawCircle(mousePosCanvas.x, mousePosCanvas.y, 20);
                 }
             }
             else if (quadPos.length === 1)
             {
                 if (!drawing)
                 {
-                    ctx.arc(v2disposSight2v2canvas(quadPos[0]).x, v2disposSight2v2canvas(quadPos[0]).y,
-                        10, 0, 2 * Math.PI, false);
+                    drawCircle(v2disposSight2v2canvas(quadPos[0]).x, v2disposSight2v2canvas(quadPos[0]).y, 10);
                 }
-                else
-                {
-                    ctx.moveTo(v2disposSight2v2canvas(quadPos[0]).x, v2disposSight2v2canvas(quadPos[0]).y);
-                    ctx.lineTo(mousePosCanvas.x, mousePosCanvas.y);
-                }
+                
+                drawLine(v2disposSight2v2canvas(quadPos[0]).x, v2disposSight2v2canvas(quadPos[0]).y, mousePosCanvas.x, mousePosCanvas.y);
             }
             else if (quadPos.length === 2)
             {
                 if (!drawing)
                 {
-                    ctx.moveTo(v2disposSight2v2canvas(quadPos[0]).x, v2disposSight2v2canvas(quadPos[0]).y);
-                    ctx.lineTo(v2disposSight2v2canvas(quadPos[1]).x, v2disposSight2v2canvas(quadPos[1]).y);
+                    drawLine(v2disposSight2v2canvas(quadPos[0]).x, v2disposSight2v2canvas(quadPos[0]).y, v2disposSight2v2canvas(quadPos[1]).x, v2disposSight2v2canvas(quadPos[1]).y);
                 }
                 else
                 {
-                    ctx.moveTo(v2disposSight2v2canvas(quadPos[0]).x, v2disposSight2v2canvas(quadPos[0]).y);
-                    ctx.lineTo(v2disposSight2v2canvas(quadPos[1]).x, v2disposSight2v2canvas(quadPos[1]).y);
-                    ctx.lineTo(mousePosCanvas.x, mousePosCanvas.y);
+                    drawQuad([
+                        { x: v2disposSight2v2canvas(quadPos[0]).x, y: v2disposSight2v2canvas(quadPos[0]).y },
+                        { x: v2disposSight2v2canvas(quadPos[1]).x, y: v2disposSight2v2canvas(quadPos[1]).y },
+                        { x: mousePosCanvas.x, y: mousePosCanvas.y },
+                    ]);
                 }
+               
+                drawLine(v2disposSight2v2canvas(quadPos[1]).x, v2disposSight2v2canvas(quadPos[1]).y, mousePosCanvas.x, mousePosCanvas.y);
             }
             else if (quadPos.length === 3)
             {
-                ctx.moveTo(v2disposSight2v2canvas(quadPos[0]).x, v2disposSight2v2canvas(quadPos[0]).y);
-                ctx.lineTo(v2disposSight2v2canvas(quadPos[1]).x, v2disposSight2v2canvas(quadPos[1]).y);
-                ctx.lineTo(v2disposSight2v2canvas(quadPos[2]).x, v2disposSight2v2canvas(quadPos[2]).y);
-                ctx.lineTo(mousePosCanvas.x, mousePosCanvas.y);
+                drawQuad([
+                    { x: v2disposSight2v2canvas(quadPos[0]).x, y: v2disposSight2v2canvas(quadPos[0]).y },
+                    { x: v2disposSight2v2canvas(quadPos[1]).x, y: v2disposSight2v2canvas(quadPos[1]).y },
+                    { x: v2disposSight2v2canvas(quadPos[2]).x, y: v2disposSight2v2canvas(quadPos[2]).y },
+                    { x: mousePosCanvas.x, y: mousePosCanvas.y },
+                ]);
             }
-
-            ctx.closePath();
-
-            if ((quadPos.length === 1 && drawing && !snapping) || (quadPos.length === 2 && !drawing && !snapping)) ctx.stroke();
-            else ctx.fill();
 
             break;
     }
@@ -309,12 +318,21 @@ function drawReference()
 {
     if (reference == null) return;
 
+    
     const refAspectRatio = reference.width / reference.height;
     const from = v2disposSight2v2canvas({ x: (-referenceSize / 2) * refAspectRatio, y: (-referenceSize / 2) });
     const to = v2disposSight2v2canvas({ x: (referenceSize / 2) * refAspectRatio, y: (referenceSize / 2) });
 
     ctx.globalAlpha = 0.5;
-    ctx.drawImage(reference, from.x, from.y, to.x - from.x, to.y - from.y);
+    try
+    {
+        ctx.drawImage(reference, from.x, from.y, to.x - from.x, to.y - from.y);
+    }
+    catch (e)
+    {
+        reference = null;
+        alert(lang === ru ? "Картинка не найдена/не подходит!" : "Image not found/not applicable!");
+    }
     ctx.globalAlpha = 1;
 }
 
@@ -478,6 +496,41 @@ canvas.onpointerdown = (e) =>
         {
             arrowPulling = true;
             posPulled = hoveredArrowHitbox;
+
+            // Pull the pos
+            const object = objects.get(selectedId);
+            let prevValue;
+
+            switch (object.type)
+            {
+                case "line":
+                    switch (posPulled)
+                    {
+                        case 0: prevValue = object.start.x; break;
+                        case 1: prevValue = object.start.y; break;
+                        case 2: prevValue = object.end.x; break;
+                        case 3: prevValue = object.end.y; break;
+                    }
+
+                    break;
+
+                case "quad":
+                    switch (posPulled)
+                    {
+                        case 0: prevValue = object.pos1.x; break;
+                        case 1: prevValue = object.pos1.y; break;
+                        case 2: prevValue = object.pos2.x; break;
+                        case 3: prevValue = object.pos2.y; break;
+                        case 4: prevValue = object.pos3.x; break;
+                        case 5: prevValue = object.pos3.y; break;
+                        case 6: prevValue = object.pos4.x; break;
+                        case 7: prevValue = object.pos4.y; break;
+                    }
+
+                    break;
+            }
+
+            pushEvent("move", { id: selectedId, posPulled: posPulled, prevValue: prevValue });
         }
         else
         {
