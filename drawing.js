@@ -318,6 +318,7 @@ function showInfo(id)
 
     el("infoDeleteButton").onclick = () =>
     {
+        pushEvent("delete", objects.get(selectedId));
         deleteObject(selectedId);
     }
 }
