@@ -199,18 +199,21 @@ function drawGhost()
     if (typeof mousePos === "undefined") return;
 
     let mousePosCanvas;
+    let trueMousePosCanvas;
 
     if (!snapping)
     {
-        mousePosCanvas = v2disposSight2v2canvas(mousePos);
+        trueMousePosCanvas = mousePosCanvas = v2disposSight2v2canvas(mousePos);
     }
     else
     {
+        trueMousePosCanvas = v2disposSight2v2canvas(mousePos);
+
         const snapPos = snappingPos(mousePos);
         if (snapPos != null)
             mousePosCanvas = v2disposSight2v2canvas(snapPos);
         else
-            mousePosCanvas = v2disposSight2v2canvas(mousePos);
+            mousePosCanvas = trueMousePosCanvas;
     }
 
     ctx.lineWidth = 1;
@@ -250,7 +253,7 @@ function drawGhost()
             if (drawing)
             {
                 const from = v2disposSight2v2canvas(startPos);
-                const to = mousePosCanvas;
+                const to = trueMousePosCanvas;
 
                 drawLine(from.x, from.y, to.x, to.y);
             }
@@ -259,6 +262,7 @@ function drawGhost()
             {
                 drawCircle(mousePosCanvas.x, mousePosCanvas.y, 20);
             }
+            
             break;
 
         case "quads":

@@ -1,5 +1,5 @@
 let events = [];
-const capacity = 30;
+const capacity = 100;
 
 function pushEvent(type, data)
 {

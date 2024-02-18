@@ -38,7 +38,8 @@ const ru =
         line: "Линия",
         quad: "Четырёхугольник",
 
-        hintsText: "[ПКМ] - Двигать холст, [ЛКМ] - Рисовать, [СКМ] - Выбрать объект, [Ctrl] - Приклеить курсор к существующей вершине<br>[Колёсико] - Масштабирование, [Ctrl+Z] - Отмена, [Ctrl+A] - Сброс выбора объекта",
+        hintsText: "[ПКМ] - Двигать холст, [ЛКМ] - Рисовать, [СКМ] - Выбрать объект, [Ctrl] - Приклеить курсор к существующей вершине<br>" +
+        "[Колёсико] - Масштабирование, [Ctrl+Z] - Отмена, [Ctrl+A] - Сброс выбора объекта, [Delete] - Удалить выбранный объект",
     };
 
 const en =
@@ -81,7 +82,8 @@ const en =
         line: "Line",
         quad: "Quad",
 
-        hintsText: "[RMB] - Move canvas, [LMB] - Draw, [MMB] - Select object, [Ctrl] - Snap to vertices<br>[Mouse Wheel] - Zoom, [Ctrl+Z] - Undo, [Ctrl+A] - Clear selection",
+        hintsText: "[RMB] - Move canvas, [LMB] - Draw, [MMB] - Select object, [Ctrl] - Snap to vertices<br>" +
+        "[Mouse Wheel] - Zoom, [Ctrl+Z] - Undo, [Ctrl+A] - Clear selection, [Delete] - Delete selected object",
     };
 
 const langDependent =
