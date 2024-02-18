@@ -320,8 +320,8 @@ function drawReference()
 
     
     const refAspectRatio = reference.width / reference.height;
-    const from = v2disposSight2v2canvas({ x: (-referenceSize / 2) * refAspectRatio, y: (-referenceSize / 2) });
-    const to = v2disposSight2v2canvas({ x: (referenceSize / 2) * refAspectRatio, y: (referenceSize / 2) });
+    const from = v2disposSight2v2canvas({ x: (-referenceSize / 2) * refAspectRatio + referenceX, y: (-referenceSize / 2) + referenceY });
+    const to = v2disposSight2v2canvas({ x: (referenceSize / 2) * refAspectRatio + referenceX, y: (referenceSize / 2) + referenceY });
 
     ctx.globalAlpha = 0.5;
     try

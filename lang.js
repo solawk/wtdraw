@@ -4,6 +4,7 @@ const ru =
         refFileTitle: "Файл картинки",
         loadRefButton: "Загрузить",
         sizeRefTitle: "Размер картинки",
+        shiftRefTitle: "Смещение картинки",
         exportButton: "Экспортировать прицел",
 
         saveButton: "Сохранить в файл",
@@ -37,7 +38,7 @@ const ru =
         line: "Линия",
         quad: "Четырёхугольник",
 
-        hintsText: "[ПКМ] - Двигать холст, [ЛКМ] - Рисовать, [СКМ] - Выбрать объект, [Ctrl] - Приклеить курсор к существующим вершинам<br>[Колёсико] - Масштабирование, [Ctrl+Z] - Отмена, [Ctrl+A] - Сброс выбора объекта",
+        hintsText: "[ПКМ] - Двигать холст, [ЛКМ] - Рисовать, [СКМ] - Выбрать объект, [Ctrl] - Приклеить курсор к существующей вершине<br>[Колёсико] - Масштабирование, [Ctrl+Z] - Отмена, [Ctrl+A] - Сброс выбора объекта",
     };
 
 const en =
@@ -46,6 +47,7 @@ const en =
         refFileTitle: "Image file",
         loadRefButton: "Load",
         sizeRefTitle: "Image size",
+        shiftRefTitle: "Image shift",
         exportButton: "Export sight",
 
         saveButton: "Save to file",
@@ -88,6 +90,7 @@ const langDependent =
         "refFileTitle",
         "loadRefButton",
         "sizeRefTitle",
+        "shiftRefTitle",
         "exportButton",
 
         "saveButton",

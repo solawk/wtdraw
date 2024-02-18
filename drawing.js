@@ -77,7 +77,47 @@ function endDrawing(pos)
             }
             else
             {
-                const object =
+                // Check if convex
+
+                function cross(pm, p1, p2)
+                {
+                    const x1 = p1.x - pm.x;
+                    const y1 = p1.y - pm.y;
+                    
+                    const x2 = p2.x - pm.x;
+                    const y2 = p2.y - pm.y;
+                    
+                    return (x1 * y2) - (y1 * x2);
+                }
+
+                function isConvex(p)
+                {
+                    let prevCross = 0;
+
+                    for (let i = 0; i < 4; i++)
+                    {
+                        const curCross = cross(p[i], p[(i + 1) % 4], p[(i + 2) % 4]);
+                        if (curCross != 0)
+                        {
+                            if (curCross * prevCross < 0)
+                            {
+                                return false;
+                            }
+                            
+                            prevCross = curCross;
+                        }
+                    }
+
+                    return true;
+                }
+
+                const isObjectConvex = isConvex([quadPos[0], quadPos[1], quadPos[2], pos]);
+
+                // Draw only if convex
+                
+                if (isObjectConvex)
+                {
+                    const object =
                     {
                         name: lang.quad + objIdStr,
                         type: "quad",
@@ -88,10 +128,17 @@ function endDrawing(pos)
                         selected: false
                     };
 
-                objects.set(objIdStr, object);
-                pushEvent("add", objIdStr);
+                    objects.set(objIdStr, object);
+                    pushEvent("add", objIdStr);
 
-                quadPos = [];
+                    quadPos = [];
+                }
+                else
+                {
+                    alert(lang === ru ? "Четырёхугольники должны быть только выпуклыми!" : "Quads must only be convex!");
+
+                    quadPos = [];
+                }
             }
 
             break;
@@ -279,43 +326,73 @@ function exportToClipboard()
 {
     let string = "";
 
-    // TODO: Check length to ignore empty
-    // Lines
-    string += "drawLines{\r\n";
-    for (const [id, object] of objects)
+    let areLinesPresent = false;
+    let areQuadsPresent = false;
+
+    objects.forEach((obj, k, m) =>
+    { 
+        if (obj.type === "line") areLinesPresent = true;
+        else areQuadsPresent = true;
+    });
+    
+    if (areLinesPresent)
     {
-        if (object.type !== "line") continue;
+        // Lines
+        string += "drawLines{\r\n";
+        for (const [id, object] of objects)
+        {
+            if (object.type !== "line") continue;
 
-        string += "  line {line:p4=";
+            string += "  line {line:p4=";
 
-        string += object.start.x + ",";
-        string += object.start.y + ",";
-        string += object.end.x + ",";
-        string += object.end.y + ";";
+            string += object.start.x + ",";
+            string += object.start.y + ",";
+            string += object.end.x + ",";
+            string += object.end.y + ";";
 
-        string += "move:b=false;}\r\n";
+            string += "move:b=false;}\r\n";
+        }
+        string += "\r\n}\r\n";
     }
-    string += "\r\n}\r\n";
-
-    // Quads
-    string += "drawQuads{\r\n";
-    for (const [id, object] of objects)
+    
+    if (areQuadsPresent)
     {
-        if (object.type !== "quad") continue;
+        // Quads
+        string += "drawQuads{\r\n";
+        for (const [id, object] of objects)
+        {
+            if (object.type !== "quad") continue;
 
-        string += "  quad {";
+            string += "  quad {";
 
-        string += "tl:p2 = " + object.pos1.x + "," + object.pos1.y + ";";
-        string += "tr:p2 = " + object.pos2.x + "," + object.pos2.y + ";";
-        string += "br:p2 = " + object.pos3.x + "," + object.pos3.y + ";";
-        string += "bl:p2 = " + object.pos4.x + "," + object.pos4.y + ";";
+            string += "tl:p2 = " + object.pos1.x + "," + object.pos1.y + ";";
+            string += "tr:p2 = " + object.pos2.x + "," + object.pos2.y + ";";
+            string += "br:p2 = " + object.pos3.x + "," + object.pos3.y + ";";
+            string += "bl:p2 = " + object.pos4.x + "," + object.pos4.y + ";";
 
-        string += "}\r\n"; //move:b=false;
+            string += "}\r\n"; //move:b=false;
+        }
+        string += "\r\n}\r\n";
     }
-    string += "\r\n}\r\n";
 
-    navigator.clipboard.writeText(string);
-    alert(lang === ru ? "Скопировано в буфер обмена!" : "Copied to the clipboard!");
+    if (objects.size === 0)
+    {
+        alert(lang === ru ? "Нечего экспортировать!" : "There is nothing to export!");
+    }
+    else
+    {
+        navigator.clipboard.writeText(string);
+
+        if (objects.size > 8000)
+        {
+            alert(lang === ru ? "Скопировано в буфер обмена, но объектов очень много (больше 8000), некоторые могут быть не отрисованы игрой" :
+            "Copied to the clipboard, but there are too many objects (over 8000), some may be not rendered by the game");
+        }
+        else
+        {
+            alert(lang === ru ? "Скопировано в буфер обмена!" : "Copied to the clipboard!");
+        } 
+    }
 }
 
 function deleteObject(id)

@@ -1,5 +1,7 @@
 let reference = null;
 let referenceSize = 1;
+let referenceX = 0;
+let referenceY = 0;
 
 function setReference()
 {
@@ -9,6 +11,16 @@ function setReference()
 function setReferenceSize()
 {
     referenceSize = parseFloat(el("refSize").value);
+}
+
+function setReferenceX()
+{
+    referenceX = parseFloat(el("refShiftX").value);
+}
+
+function setReferenceY()
+{
+    referenceY = parseFloat(el("refShiftY").value);
 }
 
 el("refFile").onchange = () =>
@@ -59,7 +71,7 @@ function calc()
         objects.set(id, object);
     }
 
-    const decimation = 12.25;
+    const decimation = 5.5;
     const size = 1 / h * decimation;
     let id = 100;
     const xS = -0.5 * (w/h);
