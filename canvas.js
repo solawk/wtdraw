@@ -137,24 +137,50 @@ function drawGrid()
     }
 }
 
+function massTransformPoint(point, x, y, r, sx, sy)
+{
+    let newX = point.x;
+    let newY = point.y;
+
+    const tempX = newX * Math.cos(r) - newY * Math.sin(r);
+    const tempY = newX * Math.sin(r) + newY * Math.cos(r);
+
+    newX = tempX * sx + x;
+    newY = tempY * sy + y;
+
+    return { x: newX, y: newY };
+}
+
 function drawStuff()
 {
     const timeSin = ((Math.sin(Date.now() * 0.01)) * 0.25) + 0.75;
 
-    for (const [id, object] of objects)
-    {
-        const opacity = el("opacityInput").value;
-        const color = !object.selected ? "rgba(0, 0, 0, " + opacity + ")" : "rgba(0, 0, 255, " + timeSin.toString() + ")";
-        const width = !object.selected ? 1 : 3;
+    const mass = getMassTransform();
 
+    let drawMassGhost = false;
+
+    if (mass.x !== 0 || mass.y !== 0 || mass.r !== 0 || mass.sx !== 1 || mass.sy !== 1)
+    {
+        drawMassGhost = true;
+        el("massB").disabled = false;
+    }
+    else
+    {
+        el("massB").disabled = true;
+    }
+
+    const opacity = el("opacityInput").value;
+
+    function drawStuffObject(object, c, w, transformationFunc)
+    {
         switch (object.type)
         {
             case "line":
-                const from = v2disposSight2v2canvas(object.start);
-                const to = v2disposSight2v2canvas(object.end);
+                const from = v2disposSight2v2canvas(transformationFunc(object.start, mass.x, mass.y, mass.r, mass.sx, mass.sy));
+                const to = v2disposSight2v2canvas(transformationFunc(object.end, mass.x, mass.y, mass.r, mass.sx, mass.sy));
 
-                ctx.strokeStyle = color;
-                ctx.lineWidth = width;
+                ctx.strokeStyle = c;
+                ctx.lineWidth = w;
                 ctx.beginPath();
                 ctx.moveTo(from.x, from.y);
                 ctx.lineTo(to.x, to.y);
@@ -164,13 +190,13 @@ function drawStuff()
                 break;
 
             case "quad":
-                const pos1 = v2disposSight2v2canvas(object.pos1);
-                const pos2 = v2disposSight2v2canvas(object.pos2);
-                const pos3 = v2disposSight2v2canvas(object.pos3);
-                const pos4 = v2disposSight2v2canvas(object.pos4);
+                const pos1 = v2disposSight2v2canvas(transformationFunc(object.pos1, mass.x, mass.y, mass.r, mass.sx, mass.sy));
+                const pos2 = v2disposSight2v2canvas(transformationFunc(object.pos2, mass.x, mass.y, mass.r, mass.sx, mass.sy));
+                const pos3 = v2disposSight2v2canvas(transformationFunc(object.pos3, mass.x, mass.y, mass.r, mass.sx, mass.sy));
+                const pos4 = v2disposSight2v2canvas(transformationFunc(object.pos4, mass.x, mass.y, mass.r, mass.sx, mass.sy));
 
-                ctx.fillStyle = color;
-                ctx.lineWidth = width;
+                ctx.fillStyle = c;
+                ctx.lineWidth = w;
                 ctx.beginPath();
 
                 ctx.moveTo(pos1.x, pos1.y);
@@ -183,6 +209,22 @@ function drawStuff()
                 ctx.fill();
 
                 break;
+        }
+    }
+
+    for (const [id, object] of objects)
+    {
+        const color = !object.selected ? "rgba(0, 0, 0, " + opacity + ")" : "rgba(0, 0, 255, " + timeSin.toString() + ")";
+        const width = !object.selected ? 1 : 3;
+
+        drawStuffObject(object, color, width, (point, x, y, r, sx, sy) => { return point; });
+    }
+
+    if (drawMassGhost)
+    {
+        for (const [id, object] of objects)
+        {
+            drawStuffObject(object, "rgba(0, 128, 0, 0.5)", 1, massTransformPoint);
         }
     }
 
@@ -365,6 +407,7 @@ function getArrowSources(object)
 }
 
 let hoveredArrowHitbox = null; // number of the arrow hitbox being hovered on, doesn't account for no object selected!!!
+// Честно, я не помню, когда писал этот комментарий о чём-то там неучтённом-нерабочем, вроде почти ничего не ломается, так что чисто побоку
 
 function drawArrows()
 {

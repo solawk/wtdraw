@@ -40,6 +40,14 @@ const ru =
 
         hintsText: "[ПКМ] - Двигать холст, [ЛКМ] - Рисовать, [СКМ] - Выбрать объект, [Ctrl] - Приклеить курсор к существующей вершине<br>" +
         "[Колёсико] - Масштабирование, [Ctrl+Z] - Отмена, [Ctrl+A] - Сброс выбора объекта, [Delete] - Удалить выбранный объект",
+
+        massLabel: "Преобразование рисунка",
+        massXLabel: "Смещение X",
+        massYLabel: "Смещение Y",
+        massRLabel: "Поворот",
+        massSXLabel: "Масштаб X",
+        massSYLabel: "Масштаб Y",
+        massB: "Применить",
     };
 
 const en =
@@ -84,6 +92,14 @@ const en =
 
         hintsText: "[RMB] - Move canvas, [LMB] - Draw, [MMB] - Select object, [Ctrl] - Snap to vertices<br>" +
         "[Mouse Wheel] - Zoom, [Ctrl+Z] - Undo, [Ctrl+A] - Clear selection, [Delete] - Delete selected object",
+
+        massLabel: "Drawing transform",
+        massXLabel: "Shift X",
+        massYLabel: "Shift Y",
+        massRLabel: "Rotate",
+        massSXLabel: "Scale X",
+        massSYLabel: "Scale Y",
+        massB: "Apply",
     };
 
 const langDependent =
@@ -108,7 +124,15 @@ const langDependent =
         "selObjectTitle",
         "saveFileNameTitle",
 
-        "hintsText"
+        "hintsText",
+
+        "massLabel",
+        "massXLabel",
+        "massYLabel",
+        "massRLabel",
+        "massSXLabel",
+        "massSYLabel",
+        "massB",
     ];
 
 function changeLang(to)

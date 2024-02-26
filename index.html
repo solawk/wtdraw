@@ -38,9 +38,56 @@
         <button id="toolsLinesButton"><img src="linesTool.png" style="width: 3em; border: 1px solid black; -webkit-user-drag: none;"></button>
         <button id="toolsQuadsButton"><img src="quadsTool.png" style="width: 3em; border: 1px solid black; -webkit-user-drag: none;"></button>
         <br><br>
-        <span id="opacityTitle">Непрозрачность</span>:<br>
-        <input id="opacityInput" type="range" value="0.8" min="0" max="1" step="0.05">
-        <br><br>
+        <span id="opacityTitle">Непрозрачность</span>:<br><input id="opacityInput" type="range" value="0.8" min="0" max="1" step="0.05"><br><br>
+        <span id="massLabel">Преобразование рисунка</span>:<br>
+        <table>
+            <tr>
+                <td>
+                    <span id="massXLabel">Смещение X</span>:<br>
+                </td>
+                <td>
+                    <input id="massX" type="number" value="0" step="0.01" style="width: 6em">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span id="massYLabel">Смещение Y</span>:<br>
+                </td>
+                <td>
+                    <input id="massY" type="number" value="0" step="0.01" style="width: 6em">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span id="massRLabel">Поворот</span>:<br>
+                </td>
+                <td>
+                    <input id="massR" type="number" value="0" step="1" style="width: 6em">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span id="massSXLabel">Масштаб X</span>:<br>
+                </td>
+                <td>
+                    <input id="massSX" type="number" value="1" step="0.01" style="width: 6em">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span id="massSYLabel">Масштаб Y</span>:<br>
+                </td>
+                <td>
+                    <input id="massSY" type="number" value="1" step="0.01" style="width: 6em">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button id="massB" onclick="applyMassTransform()">Применить</button>
+                </td>
+            </tr>
+        </table>
         <img src="lang.png" style="width: 3em; border: 1px solid black; -webkit-user-drag: none;" onclick="changeLang()">
         <br><a href="https://github.com/solawk/wtdraw" target="_blank">[GitHub]</a>
         <br><a href="https://boosty.to/solawk" target="_blank">[Boosty]</a>

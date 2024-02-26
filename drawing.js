@@ -155,6 +155,48 @@ function clearDrawing()
     drawing = false;
 }
 
+function getMassTransform()
+{
+    const massX = parseFloat(el("massX").value);
+    const massY = parseFloat(el("massY").value);
+    const massR = parseFloat(el("massR").value) * (2.0 * Math.PI / 360.0);
+    const massSX = parseFloat(el("massSX").value);
+    const massSY = parseFloat(el("massSY").value);
+
+    return { x: massX, y: massY, r: massR, sx: massSX, sy: massSY };
+}
+
+function applyMassTransform()
+{
+    const mass = getMassTransform();
+
+    for (const [id, object] of objects)
+    {
+        switch (object.type)
+        {
+            case "line":
+                object.start = massTransformPoint(object.start, mass.x, mass.y, mass.r, mass.sx, mass.sy);
+                object.end = massTransformPoint(object.end, mass.x, mass.y, mass.r, mass.sx, mass.sy);
+
+                break;
+
+            case "quad":
+                object.pos1 = massTransformPoint(object.pos1, mass.x, mass.y, mass.r, mass.sx, mass.sy);
+                object.pos2 = massTransformPoint(object.pos2, mass.x, mass.y, mass.r, mass.sx, mass.sy);
+                object.pos3 = massTransformPoint(object.pos3, mass.x, mass.y, mass.r, mass.sx, mass.sy);
+                object.pos4 = massTransformPoint(object.pos4, mass.x, mass.y, mass.r, mass.sx, mass.sy);
+
+                break;
+        }
+    }
+
+    el("massX").value = "0";
+    el("massY").value = "0";
+    el("massR").value = "0";
+    el("massSX").value = "1";
+    el("massSY").value = "1";
+}
+
 const objectsList = el("objectsList");
 
 function refreshObjectsList(scrollDown)
