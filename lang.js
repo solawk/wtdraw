@@ -48,6 +48,9 @@ const ru =
         massSXLabel: "Масштаб X",
         massSYLabel: "Масштаб Y",
         massB: "Применить",
+
+        clearButton: "Очистить",
+        autosaveManually: "Принудительно автосохранить",
     };
 
 const en =
@@ -100,6 +103,9 @@ const en =
         massSXLabel: "Scale X",
         massSYLabel: "Scale Y",
         massB: "Apply",
+
+        clearButton: "Clear",
+        autosaveManually: "Force autosave",
     };
 
 const langDependent =
@@ -133,6 +139,9 @@ const langDependent =
         "massSXLabel",
         "massSYLabel",
         "massB",
+
+        "clearButton",
+        "autosaveManually"
     ];
 
 function changeLang(to)

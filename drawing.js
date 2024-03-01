@@ -35,6 +35,14 @@ function nextId()
     return i;
 }
 
+function clearEverything()
+{
+    if (confirm(lang === ru ? "Рисунок будет полностью стёрт, продолжить?" : "The drawing will be entirely cleared, continue?"))
+    {
+        load("{}");
+    }
+}
+
 function startDrawing(pos)
 {
     switch (tool)

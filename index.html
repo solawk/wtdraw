@@ -29,6 +29,9 @@
         <button id="loadButton" onclick="el('loadButtonInput').click()">Загрузить из файла</button>
         <input type="file" id="loadButtonInput" style="display: none">
 
+        <br>
+        <button id="autosaveManually" onclick="forcedSave()">Принудительно автосохранить</button>
+
         <br><br>
         <button id="exportButton" onclick="exportToClipboard()">Экспортировать</button>
     </div>
@@ -97,6 +100,7 @@
         <b id="objectsTitle">Объекты</b>
         <div id="objectsList">
         </div>
+        <button id="clearButton" onclick="clearEverything()">Очистить</button>
     </div>
     <div id="infoMenu" class="menuIsland" style="right: 1em; bottom: 1em; text-align: center">
         <hr id="infoMenuDragger" size="10px" style="background-color: lightgray">
@@ -119,5 +123,6 @@
 <script src="reference.js"></script>
 <script src="tools.js"></script>
 <script src="canvas.js"></script>
+<script src="autosave.js"></script>
 <script src="onerror.js"></script>
 </html>

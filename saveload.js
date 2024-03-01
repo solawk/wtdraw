@@ -1,10 +1,15 @@
 const saver = el("saver");
 
-async function save()
+function formSaveData()
 {
     const data = Object.fromEntries(objects);
 
-    const file = new Blob([JSON.stringify(data)], {type: "application/json"});
+    return JSON.stringify(data);
+}
+
+async function save()
+{
+    const file = new Blob([formSaveData()], {type: "application/json"});
     saver.href = URL.createObjectURL(file);
 
     const name = el("saveFileName").value;
@@ -15,15 +20,18 @@ async function save()
 el("loadButtonInput").onchange = () =>
 {
     const fr = new FileReader();
-    fr.onload = load;
+    fr.onload = loadFromFile;
     fr.readAsText(el("loadButtonInput").files[0]);
 };
 
-function load(e)
+function loadFromFile(e)
 {
-    const data = JSON.parse(e.target.result);
+    load(e.target.result);
+}
 
-    objects = new Map(Object.entries(data));
+function load(rawData)
+{
+    objects = new Map(Object.entries(JSON.parse(rawData)));
     refreshObjectsList();
     unselectAnyObjects();
     clearEvents();
