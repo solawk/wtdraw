@@ -36,3 +36,13 @@ function load(rawData)
     unselectAnyObjects();
     clearEvents();
 }
+
+async function saveExport(data)
+{
+    const file = new Blob([data], {type: "text/plain"});
+    saver.href = URL.createObjectURL(file);
+
+    const name = el("saveFileName").value;
+    saver.download = name.length !== 0 ? name : "sight";
+    saver.click();
+}

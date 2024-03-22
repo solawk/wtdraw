@@ -434,15 +434,10 @@ function exportToClipboard()
     {
         navigator.clipboard.writeText(string);
 
-        if (objects.size > 8000)
+        if (confirm(lang === ru ? "Скопировано в буфер обмена! Сохранить копию в файл?" : "Copied to the clipboard! Save a copy to a file?"))
         {
-            alert(lang === ru ? "Скопировано в буфер обмена, но объектов очень много (больше 8000), некоторые могут быть не отрисованы игрой" :
-            "Copied to the clipboard, but there are too many objects (over 8000), some may be not rendered by the game");
+            saveExport(string);
         }
-        else
-        {
-            alert(lang === ru ? "Скопировано в буфер обмена!" : "Copied to the clipboard!");
-        } 
     }
 }
 
