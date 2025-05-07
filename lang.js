@@ -51,6 +51,9 @@ const ru =
 
         clearButton: "Очистить",
         autosaveManually: "Принудительно автосохранить",
+
+        disclaimerText: "Привет! Спасибо, что пользуетесь WTDraw.<br>После публикации приложения портал WT Live постепенно заполонили нарисованные в нём прицелы.<br>Зачастую – сомнительной релевантности, а то и уместности на официальном ресурсе. <img src='https://media.zenfs.com/en/indiewire_268/12869d9892bfb375856e46cb5a54304e' style='width: 100px'><br>Моё видение заключается в том, что портал предназначен для полезных большинству игроков поделий,<br>вроде исторических прицелов или прицелов для симуляторных боёв. Пинапы и мемы, особенно локальные, не должны заполнять собой всю его ленту.<br>Я не ограничиваю работу приложения WTDraw, но прошу о двух простых одолжениях:<br>1. Избегайте публикации заведомо нишевых творений, вне зависимости от качества исполнения. Используйте для этого неофициальные сообщества.<br>2. При публикации прицелов, сделанных в WTDraw, добавляйте в описание хештег <b>#wtdraw</b>,<br>чтобы пользователи при желании могли отфильтровывать нежелаемые посты. По возможности добавьте этот хештег в описание уже опубликованных постов.<br>Вместе мы можем сделать портал WT Live опрятнее. Приятного использования WTDraw.<br><br>Click the language button in the bottom-left to read in English",
+        disclaimerButton: "Понятно, скрыть окно"
     };
 
 const en =
@@ -106,6 +109,9 @@ const en =
 
         clearButton: "Clear",
         autosaveManually: "Force autosave",
+
+        disclaimerText: "Hello! Thank you for using WTDraw.<br>After its release the WT Live portal has been flooded with sights drawn in it.<br>Quite often – of questionable relevance for an official resource. <img src='https://media.zenfs.com/en/indiewire_268/12869d9892bfb375856e46cb5a54304e' style='width: 100px'><br>My vision is that the portal is meant for the creations relevant to the masses, such as historical or simulator battles sights.<br>Pinups and memes, especially local, should not fill up the feed.<br>I am not restricting WTDraw's usage, but will ask for two favors:<br>1. Avoid publishing obviously niche creations, no matter the quality. Use unofficial communities for this.<br>2. When publishing sights drawn via WTDraw, add a <b>#wtdraw</b> hashtag to the description, so users could filter out the posts on demand.<br>If possible, add the hashtag to the existing posts.<br>Together we can tidy up WT Live. Have fun using WTDraw.",
+        disclaimerButton: "Understood, close the window"
     };
 
 const langDependent =
@@ -141,7 +147,10 @@ const langDependent =
         "massB",
 
         "clearButton",
-        "autosaveManually"
+        "autosaveManually",
+
+        "disclaimerText",
+        "disclaimerButton",
     ];
 
 function changeLang(to)

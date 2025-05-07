@@ -8,6 +8,12 @@
 </head>
 <body style="overflow: hidden">
     <canvas id="mainCanvas" width="3840" height="2160"></canvas>
+    <div id="disclaimer" class="menuIsland" style="left: 20%; top: 30%;z-index: 10;">
+        <hr id="disclaimerDragger" size="10px" style="background-color: lightgray">
+        <span id="disclaimerText"></span>
+        <br><br>
+        <button id="disclaimerButton" onclick="closeDisclaimer()">Понял-принял</button>
+    </div>
     <div id="functionalMenu" class="menuIsland" style="left: 1em; top: 1em">
         <hr id="functionalMenuDragger" size="10px" style="background-color: lightgray">
         <span id="refUrlTitle"></span>: <input type="text" id="refUrl" value="">

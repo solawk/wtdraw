@@ -13,7 +13,8 @@ let mousePosWindow = { x: 0, y: 0 }
 
 function initialize()
 {
-
+    const disclaimerWasClosed = localStorage.getItem("wtdraw-disclaimerClosed");
+    if (disclaimerWasClosed != null) document.body.removeChild(document.getElementById("disclaimer"));
 }
 
 initialize();

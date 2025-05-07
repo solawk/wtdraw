@@ -2,6 +2,7 @@ makeDraggable("functionalMenu");
 makeDraggable("toolsMenu");
 makeDraggable("objectsMenu");
 makeDraggable("infoMenu");
+makeDraggable("disclaimer");
 
 function makeDraggable(name)
 {
@@ -40,4 +41,10 @@ function makeDraggable(name)
         document.onmouseup = null;
         document.onmousemove = null;
     }
+}
+
+function closeDisclaimer()
+{
+    localStorage.setItem("wtdraw-disclaimerClosed", true);
+    document.body.removeChild(document.getElementById("disclaimer"));
 }
