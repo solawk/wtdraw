@@ -2,6 +2,7 @@ let reference = null;
 let referenceSize = 1;
 let referenceX = 0;
 let referenceY = 0;
+let referenceOpacity = 0.5;
 
 function setReference()
 {
@@ -21,6 +22,11 @@ function setReferenceX()
 function setReferenceY()
 {
     referenceY = parseFloat(el("refShiftY").value);
+}
+
+function setReferenceOpacity()
+{
+    referenceOpacity = parseFloat(el("refOpacityInput").value);
 }
 
 el("refFile").onchange = () =>

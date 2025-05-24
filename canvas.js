@@ -370,7 +370,7 @@ function drawReference()
     const from = v2disposSight2v2canvas({ x: (-referenceSize / 2) * refAspectRatio + referenceX, y: (-referenceSize / 2) + referenceY });
     const to = v2disposSight2v2canvas({ x: (referenceSize / 2) * refAspectRatio + referenceX, y: (referenceSize / 2) + referenceY });
 
-    ctx.globalAlpha = 0.5;
+    ctx.globalAlpha = referenceOpacity;
     try
     {
         ctx.drawImage(reference, from.x, from.y, to.x - from.x, to.y - from.y);

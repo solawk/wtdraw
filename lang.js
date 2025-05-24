@@ -5,6 +5,7 @@ const ru =
         loadRefButton: "Загрузить",
         sizeRefTitle: "Размер картинки",
         shiftRefTitle: "Смещение картинки",
+        refOpacityTitle: "Непрозрачность картинки",
         exportButton: "Экспортировать прицел",
 
         saveButton: "Сохранить в файл",
@@ -63,6 +64,7 @@ const en =
         loadRefButton: "Load",
         sizeRefTitle: "Image size",
         shiftRefTitle: "Image shift",
+        refOpacityTitle: "Image opacity",
         exportButton: "Export sight",
 
         saveButton: "Save to file",
@@ -121,6 +123,7 @@ const langDependent =
         "loadRefButton",
         "sizeRefTitle",
         "shiftRefTitle",
+        "refOpacityTitle",
         "exportButton",
 
         "saveButton",
@@ -173,7 +176,14 @@ function changeLang(to)
 
     for (const name of langDependent)
     {
-        el(name).innerHTML = lang[name];
+        try
+        {
+            el(name).innerHTML = lang[name];
+        }
+        catch (e)
+        {
+            
+        }
     }
 
     showInfo(selectedId);

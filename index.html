@@ -28,6 +28,8 @@
         <span id="shiftRefTitle"></span>: 
         <input type="number" id="refShiftX" onchange="setReferenceX()" value="0" step="0.01" style="width: 4em">
         <input type="number" id="refShiftY" onchange="setReferenceY()" value="0" step="0.01" style="width: 4em">
+        <br>
+        <span id="refOpacityTitle">Непрозрачность картинки</span>:<br><input id="refOpacityInput" type="range" value="0.5" min="0" max="1" step="0.01" oninput="setReferenceOpacity()"><br>
 
         <br><br>
         <span id="saveFileNameTitle">Название файла</span>: <input type="text" id="saveFileName" value="sight"><br>
